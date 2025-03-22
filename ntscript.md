@@ -1,3 +1,4 @@
+
 ## NTScript Documentation
 > **Note:** This Documentation assumes you know some JavaScript
 
@@ -55,3 +56,55 @@ The third argument is a Object and optional, And it defines order. Its used some
     console.log(4 ° 4) // 64
 ```
 Custom operators can't overwrite existing operators. Doing multiple characters is allowed. If the third argument isn't putted, It will do by order
+
+## Custom Code Block Functions
+NTScript supports making custom functions with Code Blocks to make them you will have to put an argument to 'any:"code block"' in the "any" text, it can be anything.
+```javascript
+function random(c:"code block") {
+let r = Math.floor(Math.random() * 2);
+if (r == 1) {
+	c()
+}
+}
+random {
+console.log("This can run or not")
+}
+```
+These functions can have multiple code blocks
+```javascript
+function run2(a:"code block",b:"code block") {
+	a()
+	b()
+}
+run2 {
+	console.log(1)
+} {
+	console.log(2)
+}
+```
+Code Blocks are the same as functions but without arguments. These can be assgined to variables and can return stuff, just like functions.
+```javascript
+var storedcodeblock
+function store(c:"code block") {
+   storedcodeblock = c
+}
+store {
+console.log("This is a Code Block that is stored")
+}
+storedcodeblock()
+```
+Code Blocks also can be returned
+```javascript
+function getCodeBlock() {
+	var b
+	function store(c:"code block") {
+		b = c
+	}
+	store {
+	console.log("Generated from function")
+	}
+	return b
+}
+let block = getCodeBlock()
+block()
+```
